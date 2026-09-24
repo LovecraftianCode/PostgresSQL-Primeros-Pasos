@@ -1,6 +1,6 @@
 # Conexión a PostgreSQL con Python
 
-Práctica personal de conexión a una base de datos PostgreSQL desde Python usando SQLAlchemy y psycopg2.
+Práctica personal de conexión a una base de datos PostgreSQL desde Python usando SQLAlchemy, psql y psycopg2.
 
 ## 🛠️ Entorno
 
@@ -17,9 +17,6 @@ Práctica personal de conexión a una base de datos PostgreSQL desde Python usan
 ```bash
 sudo pacman -S postgresql python-psycopg2 python-dotenv python-sqlalchemy
 ```
-
-
-
 ## Estructura del proyecto
 
 ```
@@ -29,6 +26,29 @@ sudo pacman -S postgresql python-psycopg2 python-dotenv python-sqlalchemy
 ├── config.py             # Carga el .env y crea el engine de SQLAlchemy
 └── test_conexion.py      # Script de prueba de conexión
 ```
+
+## Carga de la base de datos de ejemplo (SQL for Data Analytics)
+
+### Conectarse a la base de datos de mantenimiento y creacion de la BDD:
+   ```bash
+   psql -U craftiancode -d postgres
+
+    #Crear la base de datos del libro
+    CREATE DATABASE sqlda;
+
+    #Conectarse a la nueva base
+    \i /ruta/al/data.dump
+```
+
+<img width="937" height="492" alt="creacion-y-carga-de-la-bdd" src="https://github.com/user-attachments/assets/1f0a65dd-142d-40ba-88f6-1a973ea3542e" />
+
+### Verificar la carga:
+
+   ```bash
+SELECT * FROM public.products LIMIT 5;
+```
+
+<img width="1890" height="564" alt="2026-09-24-001318_hyprshot" src="https://github.com/user-attachments/assets/da33dfdb-8486-43ad-991e-37e108451d98" />
 
 ## Variables de entorno
 
