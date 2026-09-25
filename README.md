@@ -2,7 +2,7 @@
 
 Práctica personal de conexión a una base de datos PostgreSQL desde Python usando SQLAlchemy, psql y psycopg2.
 
-## 🛠️ Entorno
+## Entorno
 
 - **Sistema operativo:** Arch Linux
 - **Shell:** Bash (`/usr/bin/bash`)
@@ -10,7 +10,7 @@ Práctica personal de conexión a una base de datos PostgreSQL desde Python usan
 - **Cliente gráfico:** DBeaver
 - **Editor:** Visual Studio Code
 
-## 📦 Dependencias
+## Dependencias
 
 ### Instalación de paquetes del sistema (pacman)
 
@@ -28,6 +28,11 @@ sudo pacman -S postgresql python-psycopg2 python-dotenv python-sqlalchemy
 ```
 
 ## Carga de la base de datos de ejemplo (SQL for Data Analytics)
+
+### Descargar la BDD de 
+https://github.com/PacktPublishing/SQL-for-Data-Analytics-Fourth-Edition/tree/main/Datasets
+   
+   -Se ocupara el achivo data.dump
 
 ### Conectarse a la base de datos de mantenimiento y creacion de la BDD:
    ```bash
