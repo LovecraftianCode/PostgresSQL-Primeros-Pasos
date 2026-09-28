@@ -1,0 +1,3 @@
+Para obtener la descripcion de columnas en psql usamos el comando 
+
+\d products 
