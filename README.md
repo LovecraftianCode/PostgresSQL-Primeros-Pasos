@@ -21,10 +21,15 @@ sudo pacman -S postgresql python-psycopg2 python-dotenv python-sqlalchemy
 
 ```
 02 Conexion_a_BDD_py/
-├── .env.example          # Plantilla de credenciales 
+├── .env.example          # Plantilla de credenciales
 ├── .gitignore            # Archivos excluidos del control de versiones
 ├── config.py             # Carga el .env y crea el engine de SQLAlchemy
-└── test_conexion.py      # Script de prueba de conexión
+├── test_conexion.py      # Script de prueba de conexión
+├── README.md
+└── actividades/
+    └── 02_creating_tables/
+        ├── actividad.sql       # Consulta SQL del libro
+        └── columns_info.py     # Script Python que ejecuta la consulta
 ```
 
 ## Carga de la base de datos de ejemplo (SQL for Data Analytics)
@@ -116,6 +121,62 @@ python test_conexion.py
 ```
 
 Si todo está bien configurado, el script debe mostrar la versión de PostgreSQL y un mensaje de éxito.
+
+## Estructura de columnas de una tabla
+
+Para inspeccionar las columnas de la tabla products (nombre, tipo de dato y posición) se puede hacer desde tres enfoques distintos.
+
+### Desde psql
+El meta-comando \d muestra la estructura completa de una tabla directamente en la terminal de PostgreSQL:
+
+```bash
+\d products
+```
+<img width="1888" height="1017" alt="describiendo_columnas_psql" src="https://github.com/user-attachments/assets/48cb4858-d56f-4ceb-b46e-cc12d40bc723" />
+
+### Desde SQL puro
+
+Consulta estándar al catálogo del sistema information_schema, portable a otros motores SQL como MySQL o SQL Server:
+
+```sql
+SELECT COLUMN_NAME,
+       DATA_TYPE,
+       ORDINAL_POSITION
+FROM information_schema.columns
+WHERE table_name = 'products';
+```
+
+<img width="1879" height="987" alt="describiendo_columnas_sql" src="https://github.com/user-attachments/assets/eff3e828-efc7-4396-b3b9-c73152003e70" />
+
+
+### Desde Python con SQLAlchemy
+
+Se ejecuta el mismo SQL usando text() de SQLAlchemy. El parámetro :tabla evita inyección SQL y permite reutilizar el script para otras tablas.
+
+```python
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parents[2]))
+
+from config import engine
+from sqlalchemy import text
+
+sql = text("""
+    SELECT COLUMN_NAME, DATA_TYPE, ORDINAL_POSITION
+    FROM information_schema.columns
+    WHERE table_name = :tabla
+""")
+
+with engine.connect() as conn:
+    resultado = conn.execute(sql, {"tabla": "products"})
+    for fila in resultado:
+        print(fila)
+```
+
+<img width="1884" height="1000" alt="describiendo_columnas_py" src="https://github.com/user-attachments/assets/3ddba56c-d907-4596-9986-deb4d721ba29" />
+
+Nota sobre sys.path: como el script vive dentro de actividades/02_creating_tables/, se necesita subir dos niveles con parents[2] para llegar a la raíz del proyecto y poder importar config.py.
 
 ## Notas adicionales
 
