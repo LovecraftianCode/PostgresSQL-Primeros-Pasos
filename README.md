@@ -12,11 +12,24 @@ Práctica personal de conexión a una base de datos PostgreSQL desde Python usan
 
 ## Dependencias
 
-### Instalación de paquetes del sistema (pacman)
+### ArchLinux
+### Instalación de paquetes del sistema (bash-pacman)
 
 ```bash
 sudo pacman -S postgresql python-psycopg2 python-dotenv python-sqlalchemy
 ```
+### Windows
+### Instalacionde PostgreSql
+
+Descargar el instalados de la BDD de la <a href="https://www.postgresql.org/">pagina oficial</a>
+
+### Instalación de paquetes Pip (librerias Python)
+
+```powershell
+python -m pip install psycopg2 python-dotenv sqlalchemy
+```
+
+
 ## Estructura del proyecto
 
 ```
